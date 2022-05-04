@@ -36,13 +36,13 @@ export class UserLoginFormComponent implements OnInit {
     //Under, will save the credentials in localStorage to keep the user logged while surfing.
     localStorage.setItem('token', response.token);
     localStorage.setItem('user', JSON.stringify(response.user));
-    this.snackBar.open('User Log In successful', 'OK', {
-        duration: 2000
+    this.snackBar.open(`Welcome, you're logged!`, 'OK', {
+        duration: 3000
     });
     }, (responseAgain) => {
       console.log(responseAgain);
-      this.snackBar.open('User Log In successful', 'OK', {
-        duration: 2000
+      this.snackBar.open('Sorry, we could not logged you in. Check your credentials again!', 'OK', {
+        duration: 5000
       });
     });
   }
