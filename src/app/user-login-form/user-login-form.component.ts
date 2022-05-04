@@ -9,6 +9,9 @@ import { FetchApiDataService } from '../fetch-api-data.service';
 // This import is used to display notifications back to the user
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+// Under, Router is imported to redirect the user to '/movies' after Logged.
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-user-login-form',
   templateUrl: './user-login-form.component.html',
@@ -21,7 +24,8 @@ export class UserLoginFormComponent implements OnInit {
   constructor(
     public fetchApiData: FetchApiDataService,
     public dialogRef: MatDialogRef<UserLoginFormComponent>,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    public router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -39,6 +43,7 @@ export class UserLoginFormComponent implements OnInit {
     this.snackBar.open(`Welcome, you're logged!`, 'OK', {
         duration: 3000
     });
+    this.router.navigate(['movies']); // Navigates to the movies route
     }, (responseAgain) => {
       console.log(responseAgain);
       this.snackBar.open('Sorry, we could not logged you in. Check your credentials again!', 'OK', {
