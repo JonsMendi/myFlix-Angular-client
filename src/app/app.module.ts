@@ -31,6 +31,8 @@ import { SynopsisCardComponent } from './synopsis-card/synopsis-card.component';
 import { GenreCardComponent } from './genre-card/genre-card.component';
 import { DirectorCardComponent } from './director-card/director-card.component';
 import { ProfileCardComponent } from './profile-card/profile-card.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { ProfileEditCardComponent } from './profile-edit-card/profile-edit-card.component';
 
 // Under, appRoutes is the constant that contains the Routes definitions.
 // In case of need to add more Routes, added here like so example: '{ path: 'profile', component: ProfileCardComponent },'.
@@ -52,7 +54,9 @@ const appRoutes: Routes = [
     SynopsisCardComponent,
     GenreCardComponent,
     DirectorCardComponent,
-    ProfileCardComponent
+    ProfileCardComponent,
+    NavbarComponent,
+    ProfileEditCardComponent
   ],
   imports: [
     BrowserModule,

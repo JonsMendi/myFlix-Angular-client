@@ -38,8 +38,8 @@ export class UserLoginFormComponent implements OnInit {
     this.dialogRef.close(); // This will close the modal on success!
     console.log(response);
     //Under, will save the credentials in localStorage to keep the user logged while surfing.
+    localStorage.setItem('user', response.user.Username);
     localStorage.setItem('token', response.token);
-    localStorage.setItem('user', JSON.stringify(response.user));
     this.snackBar.open(`Welcome, you're logged!`, 'OK', {
         duration: 3000
     });

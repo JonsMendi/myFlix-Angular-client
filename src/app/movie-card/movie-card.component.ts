@@ -14,9 +14,11 @@ import { Router } from '@angular/router';
 })
 export class MovieCardComponent implements OnInit {
 
-  movies: any = [];
-  Favorites: any[] = [];
-  user: any[] = [];
+  user: any = {};
+  Username = localStorage.getItem('user');
+  movies: any[] = [];
+  currentUser: any = null;
+  currentFavs: any = null;
 
   constructor(
     public fetchApiData: FetchApiDataService,
@@ -28,7 +30,7 @@ export class MovieCardComponent implements OnInit {
   // Under, Function to get Movies and Favorite Movies when component is initialized.
   ngOnInit(): void {
     this.getMovies();
-    // this.getFavoriteMovies();
+    this.getCurrentUser();
   }
 
   // Under, when the User logs in, getMovies() get all de movies from the server and displays in ngOnIt().
@@ -40,44 +42,37 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
-  // Under, should get the favorite movies from the user
-  // getFavoriteMovies(): void {
-  //   const user = JSON.parse(localStorage.getItem('user') || '{}');
-  //   this.fetchApiData.getUser(user).subscribe((response: any) => {
-  //     this.Favorites = response.FavoriteMovies
-  //   })
-  // }
+  getCurrentUser(): void {
+    const username = localStorage.getItem('user');
+    this.fetchApiData.getUser(username).subscribe((resp: any) => {
+       
+     console.log(resp)
+      const currentUser=resp.Username
+      console.log(currentUser)
+      const currentFavs=resp.FavoriteMovies
+      console.log(currentFavs)
 
-  // Under the function should call the addFavorites from fetchApiServer and use the id string containing the ID of the movie to be added to the User favorite list.
-  // addOnFavoriteMovie(MovieId: string, title: string): void {
-  //   this.fetchApiData.addFavoriteMovies(MovieId, this.user).subscribe((response: any) => {
-  //     console.log(response);
-  //     this.snackBar.open('The movie have been added to your Favorite List', 'OK', { duration: 4000 });
-  //     this.ngOnInit();
-  //   });
-  //   return this.getFavoriteMovies();
-  // }
+    });
+  }
 
-  // Under, the should remove the movie from the the favorite list
-  // deleteFavoriteMovie(MovieId: string, title: string): void {
-  //   this.fetchApiData.removeFavoriteMovies(MovieId, this.user).subscribe((response: any) => {
-  //     console.log(response);
-  //     this.snackBar.open('The movie have been removed from your Favorite List', 'OK', { duration: 4000 });
-  //     this.ngOnInit();
-  //   });
-  //   return this.getFavoriteMovies();
-  // }
+  addToUserFavorites(id: string): void {
+    console.log(id);
+    const token = localStorage.getItem('token');
+    console.log(token)
+    this.fetchApiData.addFavoriteMovies(id).subscribe((response: any) => {
+      console.log(response);
+      this.ngOnInit();
+      
+    });
+  }
 
-  // Under will be called in toggleFavorite to say if its already or not in the favorite list
-  // isFavorite(MovieID: string): boolean {
-  //   return this.Favorites.includes(MovieID);
-  // }
-
-  // toggleFavorite(movie: any): void {
-  //   this.isFavorite(movie._id)
-  //     ? this.deleteFavoriteMovie(movie._id, movie.Title)
-  //     : this.addOnFavoriteMovie(movie._id, movie.Title);
-  // }
+  removeFavorite(id: string): void {
+    console.log(id);
+      this.fetchApiData.removeFavoriteMovies(id).subscribe((response: any) => {
+      console.log(response);
+    });
+    
+  }
 
   // Under, will open the Synopsis.
   openSynopsis(title: string, imageUrl: any, description: string): void {
@@ -113,17 +108,6 @@ export class MovieCardComponent implements OnInit {
       },
       width: '500px'
     });
-  }
-
-  // Under, will open the Profile.
-  openProfile(): void {
-    this.router.navigate(['profile']);
-  }
-
-  // Under, will allow
-  logOut(): void {
-    this.router.navigate(['welcome']);
-    localStorage.clear()
   }
 
 }

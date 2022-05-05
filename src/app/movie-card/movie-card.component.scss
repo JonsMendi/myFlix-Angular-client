@@ -1,0 +1,40 @@
+#movie-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    // flex-direction: column;
+  }
+
+.movie-card {
+    margin: 30px;
+    margin-top: 40px;
+    border-color: orange;
+    background-color: inherit;
+    opacity: 95%;
+    transform: scale(1);
+    transition: transform 0.2s ease;
+}
+  
+.movie-card:hover {
+    box-shadow: 5px 10px 20px 1px rgba(126, 126, 126, 0.356);
+    transform: scale(1.01);
+}
+  
+.overflow {
+    overflow: hidden;
+}
+
+.movie-image {
+    width: 420px;
+    height: 600px;
+}
+
+.movie-card-heart {
+    color: red;
+}
+
+.movie-card-heart:hover {
+    color: black;
+    
+    
+}
