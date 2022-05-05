@@ -1,0 +1,43 @@
+<header style="background-color: bisque;">
+    <button (click)="backToMovies()" mat-stroked-button="basic">Movies</button>
+    <button (click)="logOut()" mat-stroked-button="basic">Log-Out</button>
+</header>
+
+<div class="profile-card">
+    <div class="profile-details">
+        <h3>Current Details</h3>
+        <p>Username: {{ currentUser.Username }}</p>
+        <p>Email: {{ currentUser.Email }}</p>
+        <p>Birthday: {{ currentUser?.Birthday | date }}</p>
+    </div>
+    <mat-card class="profile-update">
+        <mat-card-header>
+            <mat-card-title>Update your Profile here!</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form>
+                <mat-form-field>
+                    <input matInput [(ngModel)]="userData.Username" type="text" placeholder="Username" name="Username">
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput [(ngModel)]="userData.Password" type="text" placeholder="Password" name="Password">
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput [(ngModel)]="userData.Email" type="email" placeholder="Email" name="Email">
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput [(ngModel)]="userData.Birthday" type="date" name="Birthday">
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-stroked-button="basic" (click)="updateUserProfile()">Update</button>
+        </mat-card-actions> 
+    </mat-card>
+    <div class="profile-favorite">
+        <h2>Favorite List</h2>
+        <ul *ngFor="let title of currentFavoriteList;">
+            <li>{{title}}</li>
+        </ul>
+    </div>
+</div>
