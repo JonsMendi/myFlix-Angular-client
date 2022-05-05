@@ -38,7 +38,7 @@ export class UserRegistrationFormComponent implements OnInit {
     });
     }, (result) => {
       console.log(result);
-      this.snackBar.open('User and Password should have at least 5 characters.', 'OK', {
+      this.snackBar.open('User and Password should have at least 5 characters and should contain letters and numbers.', 'OK', {
         duration: 5000
       });
     });
