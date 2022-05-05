@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class ProfileCardComponent implements OnInit {
 
   // When the User types into to the input, the updateUserData is updated.
-  @Input() userData = { Username: '', Password: '', Email: '', Birth: '' }
+  @Input() userData = { Username: '', Password: '', Email: '', Birthday: '' }
 
   // Under, gets the User information from the database.
   userFromStorage: any = localStorage.getItem('user');
@@ -49,7 +49,7 @@ export class ProfileCardComponent implements OnInit {
       Username: this.userData.Username ? this.userData.Username : this.currentUser.Username,
       Password: this.userData.Password ? this.userData.Password : this.currentUser.Password,
       Email: this.userData.Email ? this.userData.Email : this.currentUser.Email,
-      Birth: this.userData.Birth ? this.userData.Birth : this.currentUser.Birth,
+      Birthday: this.userData.Birthday ? this.userData.Birthday : this.currentUser.Birthday,
     }
     this.fetchApiData.updateUser(updateData).subscribe((response: any) => {
       this.snackBar.open('Profile successfully update.', 'OK', { duration: 3000 });
