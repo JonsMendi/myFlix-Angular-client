@@ -32,6 +32,7 @@ export class ProfileEditCardComponent implements OnInit {
     this.getUser();
   }
 
+  // Under, grabs the user from localStorage to allow to update.
   getUser(): void {
     const user = localStorage.getItem('user');
     this.fetchApiData.getUser(user).subscribe((resp: any) => {
@@ -41,6 +42,7 @@ export class ProfileEditCardComponent implements OnInit {
     });
   }
 
+  // Under, updates the user.
   updateUserProfile(): void {
     this.fetchApiData.updateUser(this.userData).subscribe((resp) => {
       this.dialogRef.close();

@@ -1,4 +1,4 @@
-<<mat-card>
+<mat-card class="edit-card">
     <mat-card-header>
       <mat-card-title>Edit Profile</mat-card-title>
     </mat-card-header>
@@ -8,6 +8,7 @@
           <input
             matInput
             [(ngModel)]="userData.Username"
+            
             placeholder="Username"
             type="text"
             name="Username"
@@ -47,10 +48,10 @@
       </form>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button (click)="updateUserProfile()" color="primary">
+      <button mat-button class="edit-button" (click)="updateUserProfile()" color="primary">
         Update
       </button>
-      <button mat-raised-button (click)="closeDialog()" color="primary">
+      <button mat-button class="edit-button" (click)="closeDialog()" color="primary">
         Close
       </button>
     </mat-card-actions>

@@ -42,6 +42,7 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+  //Under, when the user is logged the functions grab de user from local storage and add the details to the state.
   getCurrentUser(): void {
     const username = localStorage.getItem('user');
     this.fetchApiData.getUser(username).subscribe((resp: any) => {
@@ -55,17 +56,21 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
+  // Under, add the movie to favorite list of user.
   addToUserFavorites(id: string): void {
     console.log(id);
     const token = localStorage.getItem('token');
     console.log(token)
     this.fetchApiData.addFavoriteMovies(id).subscribe((response: any) => {
       console.log(response);
-      this.ngOnInit();
-      
+    this.snackBar.open('Nice! The movie is in your list.', 'OK', { duration: 3000 })
+    this.ngOnInit();
+    //Under, it's forced a reload to see the movie in the Profile. Otherwise the user need to refresh manually the page.
+    this.router.navigate(['movies']);
     });
   }
 
+  // Under, removes(need to be configurated to toogle).
   removeFavorite(id: string): void {
     console.log(id);
       this.fetchApiData.removeFavoriteMovies(id).subscribe((response: any) => {

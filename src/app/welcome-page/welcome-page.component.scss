@@ -1,0 +1,47 @@
+.main-page {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    background-image: url('../../assets/images/banana.png');
+}
+
+.welcome-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    height: 200px;
+    margin-top: 250px;
+    border-radius: 2%;
+    z-index: 1;
+    
+}
+
+h1 {
+    font-size: 80px;
+    line-height: 100%;
+}
+
+.welcome-button-group {
+    margin-top: 30px;
+    margin-right: 170px;
+}
+
+.welcome-button {
+    background-color: #FFE618;
+    padding: 20px;
+}
+
+.welcome-button:hover {
+    background-color: black;
+    color: #FFE618;
+}
+
+.button-login {
+    padding: 10px;
+}
+
+.image-back {
+    z-index: -1;
+}

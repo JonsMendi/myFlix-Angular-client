@@ -1,21 +1,23 @@
 .logout {
     color: white;
-    background-color: black;
+    
     font-size: 20px;
-  }
+}
   
 .nav-bar {
-position: static;
+position: fixed;
 width: 100%;
 top: 0;
+z-index: 1;
+margin-bottom: 80px;
 }
   
 .tool-bar {
 justify-content: flex-start;
 gap: 5px;
 border-bottom: 1px solid;
-color: white;
-background-color: black;
+color: black;
+background-color: #FFE618;
 font-size: 20px;
 }
   
@@ -24,8 +26,8 @@ button {
 }
 
 button:hover {
-    color: black;
-    background-color: red;
+    color: #FFE618;
+    background-color: black;
 }
 
 .button-div {

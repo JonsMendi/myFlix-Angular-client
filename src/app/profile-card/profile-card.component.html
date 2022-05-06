@@ -1,28 +1,24 @@
 <app-navbar class="navbar-profile"></app-navbar>
 <div class="profile-body">
-  <mat-card class="profilebackground">
+  <mat-card>
     <div class="user-info">
-      <h2>Your Profile</h2>
-      <mat-card-header> </mat-card-header>
+      <mat-card-header class="profile-title"><h1>Profile</h1></mat-card-header>
+      <h2><b>Username: </b>{{ user.Username }}</h2>
+        <h2><b>Email: </b>{{ user.Email }}</h2>
+        <h2><b>Birthday: </b>{{ user.Birth | date:'longDate' }}</h2>
       <mat-card-content>
-        <h3><b>Username: </b>{{ user.Username }}</h3>
-        <h3><b>Email: </b>{{ user.Email }}</h3>
-        <h3><b>Birthday: </b>{{ user.Birth | date }}</h3>
         <br />
-        <!-- <h3><b>Favourite Movies:</b> {{ user.FavouriteMovies }}</h3> -->
         <button
-          class="profile-btn"
-          mat-raised-button
+          class="profile-button"
+          mat-button
           (click)="openEditUserProfile()"
           style="margin-right: 10px"
-          color="primary"
         >
           Edit Profile
         </button>
         <button
-          class="profile-btn"
-          color="warn"
-          mat-raised-button
+          class="profile-button"
+          mat-button
           (click)="deleteUserProfile()"
         >
           Delete Profile
@@ -30,16 +26,17 @@
       </mat-card-content>
     </div>
   </mat-card>
-  <div class="moviebox">
-    <div *ngIf="displayElement; else message">
-      <h2>Favourite movies</h2>
-      <mat-card *ngFor="let movie of favMovies; let i = index">
+  <h1 class="favorite-section-title">Favorite Movies</h1>
+  <div id="favorite-movie-card-container">
+    
+    <div class="movies-s" *ngIf="displayElement; else message"> 
+      <mat-card class="favorite-movie-card" *ngFor="let movie of favMovies; let i = index">
         <mat-dialog-content>
           <mat-card-title>{{ movie.title }}</mat-card-title>
           <mat-card-subtitle
-            ><img class="movie-image" src="{{ movie.ImageUrl }}"
+            ><img class="favorite-movie-image" src="{{ movie.ImageUrl }}"
           /></mat-card-subtitle>
-          <mat-card-header>
+          <mat-card-header class="favorite-movie-buttons">
             <button
               class="director-button"
               mat-button
@@ -52,7 +49,7 @@
                 )
               "
             >
-              Director Details
+              Director
             </button>
 
             <button
@@ -63,7 +60,7 @@
                 openGenreDialog(movie.Genre.Name, movie.Genre.Description)
               "
             >
-              Genre Details
+              Genre
             </button>
             <button
               class="synopsis-button"
@@ -81,14 +78,14 @@
               color="grey"
               (click)="removeFavorite(movie._id)"
             >
-              Delete Favorite Movie
+              Remove Movie
             </button>
           </mat-card-header>
         </mat-dialog-content>
       </mat-card>
     </div>
     <ng-template #message>
-      <h2>You don't have any favourite movies in your list</h2>
+      <h2>Favorite list empty. Pick one movie! </h2>
     </ng-template>
   </div>
 </div>

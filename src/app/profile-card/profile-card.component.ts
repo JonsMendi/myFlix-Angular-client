@@ -41,6 +41,7 @@ export class ProfileCardComponent implements OnInit {
     this.getFavorites();
   }
 
+  // Under, get the User from the localStorage.
   getUser(): void {
     const user = localStorage.getItem('user');
     if (user) {
@@ -51,12 +52,14 @@ export class ProfileCardComponent implements OnInit {
     }
   }
 
+  // Under, open the the edit dialog.
   openEditUserProfile(): void {
     this.dialog.open(ProfileEditCardComponent, {
       width: '500px'
     });
   }
 
+  // Under, genre dialog.
   openGenreDialog(name: string, description: string): void {
     this.dialog.open(GenreCardComponent, {
       data: {
@@ -67,6 +70,7 @@ export class ProfileCardComponent implements OnInit {
     });
   }
 
+  // Under, director dialog.
   openDirectorDialog(name: string, bio: string, birth: string): void {
     this.dialog.open(DirectorCardComponent, {
       data: {Name: name, Bio: bio, Birth: birth},
@@ -74,6 +78,7 @@ export class ProfileCardComponent implements OnInit {
     });
   }
 
+  // Under, synopsis dialog.
   openSynopsis(title: string, imagePath: any, description: string): void {
     this.dialog.open(SynopsisCardComponent, {
       data: {
@@ -86,6 +91,7 @@ export class ProfileCardComponent implements OnInit {
    
   }
 
+  // Under, get the favorites form the User database.
   getFavorites(): void {
     let movies: any[] = [];
     this.fetchApiData.getAllMovies().subscribe((res: any) => {
@@ -100,6 +106,7 @@ export class ProfileCardComponent implements OnInit {
     });
   }
 
+  // Under, remove the movie from the list of favorites.
   removeFavorite(id: string): void {
     this.fetchApiData.removeFavoriteMovies(id).subscribe((res: any) => {
       this.snackBar.open('Successfully removed from favorite movies.', 'OK', {
@@ -107,9 +114,10 @@ export class ProfileCardComponent implements OnInit {
       });
       this.ngOnInit();
       return this.favs;
-    })
+    });
   }
 
+  // Under, deletes the profile from the database.
   deleteUserProfile(): void {
     if (confirm('Are you sure? This cannot be undone.')) {
       this.router.navigate(['welcome']).then(() => {

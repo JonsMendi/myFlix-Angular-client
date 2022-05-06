@@ -1,4 +1,59 @@
-.navbar-profile {
-    color: rgba(0, 0, 0, 0.685);
+.profile-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-title {
+    margin-right: 40px;
+}
+
+.profile-button {
+    background-color: black;
+    color: white;
+}
+
+.profile-button:hover {
+    color: #FFE618;
+}
+
+#favorite-movie-card-container {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+}
+
+.favorite-section-title {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
     
+}
+
+.movies-s {
+    display: flex;
+    flex-direction: row;
+}
+
+.favorite-movie-card {
+    width: 330px;
+    height: 530px;
+    margin: 30px;
+}
+
+.favorite-movie-image {
+    margin-left: 15px;
+    width: 300px;
+    height: auto;
+}
+
+.favorite-movie-buttons {
+   display: block;
 }
