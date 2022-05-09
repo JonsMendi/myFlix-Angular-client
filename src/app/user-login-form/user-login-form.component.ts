@@ -40,7 +40,7 @@ export class UserLoginFormComponent implements OnInit {
     //Under, will save the credentials in localStorage to keep the user logged while surfing.
     localStorage.setItem('user', response.user.Username);
     localStorage.setItem('token', response.token);
-    this.snackBar.open(`Welcome, you're logged!`, 'OK', {
+    this.snackBar.open(`Welcome to myFLix, enjoy!`, 'OK', {
         duration: 3000
     });
     this.router.navigate(['movies']); // Navigates to the movies route

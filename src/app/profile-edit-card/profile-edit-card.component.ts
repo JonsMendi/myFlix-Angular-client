@@ -47,7 +47,7 @@ export class ProfileEditCardComponent implements OnInit {
     this.fetchApiData.updateUser(this.userData).subscribe((resp) => {
       this.dialogRef.close();
       localStorage.setItem('user', resp.Username);
-      this.snackBar.open('Your profile was updated successfully.', 'OK', {
+      this.snackBar.open(resp, 'OK', {
         duration: 2000
       });
       setTimeout(() => {

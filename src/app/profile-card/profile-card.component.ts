@@ -15,9 +15,6 @@ import { SynopsisCardComponent } from '../synopsis-card/synopsis-card.component'
 })
 export class ProfileCardComponent implements OnInit {
 
-  // When the User types into to the input, the updateUserData is updated.
-  @Input() userData = { Username: '', Password: '', Email: '', Birth: '' }
-
   // Under, gets the User information from the database.
   user: any = {};
   movies: any[] = [];
@@ -107,12 +104,15 @@ export class ProfileCardComponent implements OnInit {
   }
 
   // Under, remove the movie from the list of favorites.
-  removeFavorite(id: string): void {
-    this.fetchApiData.removeFavoriteMovies(id).subscribe((res: any) => {
+  removeFavorite(MovieID: string): void {
+    this.fetchApiData.removeFavoriteMovies(MovieID).subscribe((res: any) => {
       this.snackBar.open('Successfully removed from favorite movies.', 'OK', {
         duration: 2000,
       });
       this.ngOnInit();
+      setTimeout(() => {
+        window.location.reload();
+      });
       return this.favs;
     });
   }
@@ -120,13 +120,13 @@ export class ProfileCardComponent implements OnInit {
   // Under, deletes the profile from the database.
   deleteUserProfile(): void {
     if (confirm('Are you sure? This cannot be undone.')) {
-      this.router.navigate(['welcome']).then(() => {
-        this.snackBar.open('Your account was deleted', 'OK', {duration: 6000});
-      });
-      this.router.navigate(['welcome'])
       this.fetchApiData.deleteUser().subscribe(() => {
+        this.snackBar.open('The account was delete!', 'OK', {
+          duration: 4000,
+        });
         localStorage.clear();
       });
+      this.router.navigate(['welcome']);
     }
   }
 }

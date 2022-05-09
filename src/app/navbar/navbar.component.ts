@@ -34,7 +34,7 @@ export class NavbarComponent implements OnInit {
   // Under, Log Out.
   logOut(): void {
     localStorage.clear();
-    this.snackBar.open('You have been successfully logged out', 'Ok', {
+    this.snackBar.open('Hope you enjoyed, see later!', 'Ok', {
       duration: 2000,
     });
     this.router.navigate(['welcome']);

@@ -57,23 +57,21 @@ export class MovieCardComponent implements OnInit {
   }
 
   // Under, add the movie to favorite list of user.
-  addToUserFavorites(id: string): void {
-    console.log(id);
+  addToUserFavorites(MovieID: string): void {
+    console.log(MovieID);
     const token = localStorage.getItem('token');
     console.log(token)
-    this.fetchApiData.addFavoriteMovies(id).subscribe((response: any) => {
+    this.fetchApiData.addFavoriteMovies(MovieID).subscribe((response: any) => {
       console.log(response);
     this.snackBar.open('Nice! The movie is in your list.', 'OK', { duration: 3000 })
-    this.ngOnInit();
-    //Under, it's forced a reload to see the movie in the Profile. Otherwise the user need to refresh manually the page.
-    this.router.navigate(['movies']);
+    this.ngOnInit();    
     });
   }
 
   // Under, removes(need to be configurated to toogle).
-  removeFavorite(id: string): void {
-    console.log(id);
-      this.fetchApiData.removeFavoriteMovies(id).subscribe((response: any) => {
+  removeFavorite(MovieID: string): void {
+    console.log(MovieID);
+      this.fetchApiData.removeFavoriteMovies(MovieID).subscribe((response: any) => {
       console.log(response);
     });
     
