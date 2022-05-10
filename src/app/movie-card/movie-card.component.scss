@@ -2,10 +2,12 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 100px;
+    margin-top: 80px;
 }
 
 .movie-card {
+    max-width: 260px;
+    max-height: 430px;
     margin: 30px;
     margin-top: 20px;
     border-color: orange;
@@ -25,12 +27,14 @@
 }
 
 .movie-image {
-    width: 420px;
-    height: 600px;
+    width: 260px;
+    height: 350px;
 }
 
 .movie-card-heart {
     color: red;
+    margin-left: 120px;
+    
 }
 
 .movie-card-heart:hover {
@@ -41,4 +45,12 @@
 
 .movie-card-heart:focus {
     color: black;
+}
+
+.card-button {
+    color: black;
+}
+
+.card-button:hover {
+    background-color: rgba($color: #FFE618, $alpha: 1.0);
 }

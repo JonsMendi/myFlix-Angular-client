@@ -1,7 +1,7 @@
 .logout {
     color: white;
     
-    font-size: 20px;
+    font-size: 15px;
 }
   
 .nav-bar {
@@ -15,14 +15,12 @@ margin-bottom: 80px;
 .tool-bar {
 justify-content: flex-start;
 gap: 5px;
-border-bottom: 1px solid;
-color: black;
 background-color: #FFE618;
 font-size: 20px;
 }
   
 button {
-    font-size: 20px; 
+    font-size: 15px; 
 }
 
 button:hover {
@@ -36,5 +34,9 @@ button:hover {
 
 .title {
     color: red;
+}
+
+.banana-img {
+    width: 40px;
 }
   

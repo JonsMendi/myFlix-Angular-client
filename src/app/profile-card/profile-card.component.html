@@ -2,10 +2,10 @@
 <div class="profile-body">
   <mat-card>
     <div class="user-info">
-      <mat-card-header class="profile-title"><h1>Profile</h1></mat-card-header>
-      <h2><b>Username: </b>{{ user.Username }}</h2>
-        <h2><b>Email: </b>{{ user.Email }}</h2>
-        <h2><b>Birthday: </b>{{ user.Birth | date:'longDate' }}</h2>
+      <mat-card-header class="profile-title"><h1>{{user.Username}} Profile</h1></mat-card-header>
+      <h3><b>Username: </b>{{ user.Username }}</h3>
+        <h3><b>Email: </b>{{ user.Email }}</h3>
+        <h3><b>Birthday: </b>{{ user.Birth | date:'longDate' }}</h3>
       <mat-card-content>
         <br />
         <button
@@ -85,7 +85,7 @@
       </mat-card>
     </div>
     <ng-template #message>
-      <h2>Favorite list empty. Pick one movie! </h2>
+      <h3>Favorite list empty. Pick one movie! </h3>
     </ng-template>
   </div>
 </div>
