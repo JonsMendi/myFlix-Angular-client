@@ -27,6 +27,7 @@ export class MovieCardComponent implements OnInit {
   movies: any[] = [];
   currentUser: any = null;
   currentFavs: any = null;
+  favArray = <any>[];
 
   constructor(
     public fetchApiData: FetchApiDataService,
@@ -40,8 +41,8 @@ export class MovieCardComponent implements OnInit {
 
    */
   ngOnInit(): void {
-    this.getMovies();
     this.getCurrentUser();
+    this.getMovies();
   }
 
   /**
@@ -56,6 +57,10 @@ export class MovieCardComponent implements OnInit {
     this.fetchApiData.getAllMovies().subscribe((response: any) => {
       this.movies = response;
       console.log(this.movies);
+      console.log(' this.user ===========',  this.user );
+      this.favArray = this.movies.filter((movie: any)=> this.user.FavoriteMovies?.includes(movie._id))
+      this.favArray = this.favArray.map((movie: any)=> movie._id);
+      console.log(' this.favArray ',  this.favArray );
       return this.movies;
     });
   }
@@ -70,9 +75,10 @@ export class MovieCardComponent implements OnInit {
     const username = localStorage.getItem('user');
     this.fetchApiData.getUser(username).subscribe((resp: any) => {
        
-     console.log(resp)
+     console.log('getCurrentUse ========r', resp)
       const currentUser=resp.Username
       console.log(currentUser)
+      this.user = resp;
       const currentFavs=resp.FavoriteMovies
       console.log(currentFavs)
 
@@ -88,14 +94,19 @@ export class MovieCardComponent implements OnInit {
    */
   
   addToUserFavorites(MovieID: string): void {
-    console.log(MovieID);
+    
     const token = localStorage.getItem('token');
     console.log(token)
-    this.fetchApiData.addFavoriteMovies(MovieID).subscribe((response: any) => {
-      console.log(response);
-    this.snackBar.open('Nice! The movie is in your list.', 'OK', { duration: 3000 })
-    this.ngOnInit();    
-    });
+    console.log(MovieID, this.favArray, this.favArray.includes(MovieID));
+    if(!this.favArray.includes(MovieID)){
+      this.fetchApiData.addFavoriteMovies(MovieID).subscribe((response: any) => {
+        console.log('response',response);
+        // this.favArray.push(MovieID)
+      this.snackBar.open('Nice! The movie is in your list.', 'OK', { duration: 3000 })  
+      });
+    }else{
+      this.snackBar.open('Sorry! The movie has been added to favorite.', 'OK', { duration: 3000 })
+    }
   }
 
   /**
@@ -113,7 +124,6 @@ export class MovieCardComponent implements OnInit {
     });
     
   }
-
   /**
    * Open's a dialog through SynopsisCardComponent with the Synopsis of a certain movie.
    * 

@@ -29,7 +29,7 @@
   <h1 class="favorite-section-title">Favorite Movies</h1>
   <div id="favorite-movie-card-container">
     
-    <div class="movies-s" *ngIf="displayElement; else message"> 
+    <div class="movies-s" *ngIf="favMovies.length>0; else message"> 
       <mat-card class="favorite-movie-card" *ngFor="let movie of favMovies; let i = index">
         <mat-dialog-content>
           <mat-card-title>{{ movie.title }}</mat-card-title>

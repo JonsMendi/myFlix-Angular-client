@@ -129,13 +129,13 @@ export class ProfileCardComponent implements OnInit {
     let movies: any[] = [];
     this.fetchApiData.getAllMovies().subscribe((res: any) => {
       movies = res;
-      movies.forEach((movie: any) => {
-        if (this.user.FavoriteMovies?.includes(movie._id)) {
-          this.favMovies.push(movie);
-          this.displayElement = true;
-        }
-        });
-      
+      // movies.forEach((movie: any) => {
+      //   if (this.user.FavoriteMovies?.includes(movie._id)) {
+      //     this.favMovies.push(movie);
+      //     // this.displayElement = true;
+      //   }
+      //   });
+        this.favMovies = movies.filter((movie: any)=>this.user.FavoriteMovies?.includes(movie._id))
     });
   }
 
