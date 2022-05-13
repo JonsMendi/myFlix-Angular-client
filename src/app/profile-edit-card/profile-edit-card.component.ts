@@ -1,3 +1,7 @@
+/**
+ * The ProfileEditCardComponent allows the user to update is profile.
+ */
+
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,6 +17,10 @@ export class ProfileEditCardComponent implements OnInit {
 
   Username = localStorage.getItem('user');
   user: any = {};
+
+  /**
+   * Binding input values to userData object
+   */
 
   @Input() userData = { 
     Username: this.user.Username,
@@ -32,7 +40,10 @@ export class ProfileEditCardComponent implements OnInit {
     this.getUser();
   }
 
-  // Under, grabs the user from localStorage to allow to update.
+  /**
+   * Grabs the user from localStorage to allow to update.
+   */
+  
   getUser(): void {
     const user = localStorage.getItem('user');
     this.fetchApiData.getUser(user).subscribe((resp: any) => {
@@ -42,7 +53,10 @@ export class ProfileEditCardComponent implements OnInit {
     });
   }
 
-  // Under, updates the user.
+  /**
+   * Updates the user with PUT request via [[FetchApiDataService.updateUser]]
+   */
+  
   updateUserProfile(): void {
     this.fetchApiData.updateUser(this.userData).subscribe((resp) => {
       this.dialogRef.close();

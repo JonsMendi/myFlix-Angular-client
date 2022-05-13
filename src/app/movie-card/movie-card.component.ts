@@ -1,3 +1,11 @@
+/**
+ * Renders a responsive flex structure of movie cards for each movie in the database.
+ * Each card contains a picture, buttons to open Director description, Genre description,
+ * Synopsis description and a last button to add the specific movie to a user's favorite list.
+ * 
+ * @module MovieCardComponent
+ */
+
 import { Component, OnInit } from '@angular/core';
 import { FetchApiDataService } from '../fetch-api-data.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -27,13 +35,23 @@ export class MovieCardComponent implements OnInit {
     public router: Router,
     ) { }
 
-  // Under, Function to get Movies and Favorite Movies when component is initialized.
+  /**
+   * Under, Function to get Movies and CurrentUser when component is initialized.
+
+   */
   ngOnInit(): void {
     this.getMovies();
     this.getCurrentUser();
   }
 
-  // Under, when the User logs in, getMovies() get all de movies from the server and displays in ngOnIt().
+  /**
+   * When the User logs in, getMovies() get all de movies from the server through getAllMovies() with a GET request via 
+   * [[FetchApiDataService.getAllMovies]].
+   * to connect with the endpoint of API, and displays each one by each card.
+   * @function getMovies
+   * @returns movies in JSON format
+
+   */
   getMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((response: any) => {
       this.movies = response;
@@ -42,7 +60,12 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
-  //Under, when the user is logged the functions grab de user from local storage and add the details to the state.
+  /**
+   * When the user is logged the functions grab de user from local storage and add the details to the state.
+   * @function getCurrentUser
+   * @returns user in JSON format
+
+   */
   getCurrentUser(): void {
     const username = localStorage.getItem('user');
     this.fetchApiData.getUser(username).subscribe((resp: any) => {
@@ -56,7 +79,14 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
-  // Under, add the movie to favorite list of user.
+  /**
+   * Adds a movie to a user's list of favorites with a POST request via 
+   * [[FetchApiDataService.addFavoriteMovies]].
+   * 
+   * @function addToUserFavorites
+   * @param MovieID {string}
+   */
+  
   addToUserFavorites(MovieID: string): void {
     console.log(MovieID);
     const token = localStorage.getItem('token');
@@ -68,7 +98,14 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
-  // Under, removes(need to be configurated to toogle).
+  /**
+   * Removes a movie from a user's list of favorites with a DELETE request via 
+   * [[FetchApiDataService.removeFavoriteMovies]].
+   * 
+   * @function removeFavorite
+   * @param MovieID {string}
+   */
+
   removeFavorite(MovieID: string): void {
     console.log(MovieID);
       this.fetchApiData.removeFavoriteMovies(MovieID).subscribe((response: any) => {
@@ -77,7 +114,14 @@ export class MovieCardComponent implements OnInit {
     
   }
 
-  // Under, will open the Synopsis.
+  /**
+   * Open's a dialog through SynopsisCardComponent with the Synopsis of a certain movie.
+   * 
+   * @param title {string}
+   * @param imageUrl {any}
+   * @param description {string}
+   */
+  
   openSynopsis(title: string, imageUrl: any, description: string): void {
     this.dialog.open(SynopsisCardComponent, {
       data: {
@@ -89,7 +133,13 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
-  // Under, will open the Genre.
+  /**
+   * Open's a dialog through GenreCardComponent with the Genre of a certain movie.
+   * 
+   * @param name {string}
+   * @param description {string}
+   */
+  
   openGenre(name: string, description: string): void {
     this.dialog.open(GenreCardComponent, {
       data: {
@@ -100,7 +150,15 @@ export class MovieCardComponent implements OnInit {
     });
   }
 
-  // Under will open the Director.
+  /**
+   * Open's a dialog through DirectorCardComponent with the Director of a certain movie.
+   * 
+   * @param name {string}
+   * @param bio {string}
+   * @param birth {string}
+   * @param death {string}
+   */
+
   openDirector(name: string, bio: string, birth: string, death: string): void {
     this.dialog.open(DirectorCardComponent, {
       data: {
@@ -114,3 +172,18 @@ export class MovieCardComponent implements OnInit {
   }
 
 }
+
+
+/**
+ * So about the issues you have mentioned here are some things you can try to fix them:
+
+You can do a check based on the id of the movie before adding it to the user's favorites.
+ Forexample when you click the button to add a movie to favorites, you can first do a check to 
+ makes sure that the user doesn't already have that movie 'id' present among their favorites
+  Then about the favorites needing a reload to show up, i checked you code and it looks like you 
+  are fetching and setting the movies correctly. so i think all you need to do is do a nil check. 
+  so something like if favorites are present, then render favorite movies. its usually done 
+  like favs && favs.map(...render fav). That way, it only renders when favs are present and wont 
+  require a reload.
+
+ */

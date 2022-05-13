@@ -1,3 +1,9 @@
+/**
+ * The NavBar displays the Movie and Profile access route and a button for the user Logout
+ * 
+ * @module NavbarComponent
+ */
+
 import { Component, OnInit } from '@angular/core';
 import { FetchApiDataService } from '../fetch-api-data.service';
 import { Router } from '@angular/router';
@@ -21,17 +27,26 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // Under, navigates to Movies.
+  /**
+   * Navigates to `'/movies'`  
+   * This is called from a button.
+   */
   toMovies(): void {
     this.router.navigate(['movies']);
   }
 
-  // Under, navigates to Profile.
+  /**
+   * Navigates to `'/profile'`  
+   * This is called from a button.
+   */
   goToProfilePage(): void {
     this.router.navigate(['profile']);
   }
 
-  // Under, Log Out.
+  /**
+   * Logs out the user by clearing localStorage and navigating to `/welcome`  
+   * This is called from a logout button.
+   */
   logOut(): void {
     localStorage.clear();
     this.snackBar.open('Hope you enjoyed, see later!', 'Ok', {

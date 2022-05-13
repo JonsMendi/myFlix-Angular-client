@@ -1,3 +1,9 @@
+/**
+ * Renders a login form for users to enter their Username and Password.
+ * 
+ * @module UserLoginFormComponent
+ */
+
 import { Component, OnInit, Input } from '@angular/core';
 
 // You'll use this import to close the dialog on success
@@ -19,6 +25,11 @@ import { Router } from '@angular/router';
 })
 export class UserLoginFormComponent implements OnInit {
 
+  /**
+   * The input userData is empty strings by default.  
+   * This is updated when the user types into the form fields.
+   */
+
   @Input() userCredentials = { Username: '', Password: '' };
 
   constructor(
@@ -31,7 +42,15 @@ export class UserLoginFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // This is the function responsible for sending the form inputs to the backend
+  /**
+   * Attempts to log the user in with the input credentials.  
+   * Uses [[FetchApiDataService.userLogin]].  
+   * Saves Username and token in localStorage and 
+   * redirects to `/movies` if successful login.  
+   * 
+   */
+
+  
   loginUser(): void {
     this.fetchApiData.userLogin(this.userCredentials).subscribe((response) => {
     // Logic for a successful user registration goes here! (To be implemented)

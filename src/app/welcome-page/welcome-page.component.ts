@@ -1,7 +1,10 @@
-// In this component we will define what exists in the '/welcome' component.
-// This component will be the first to open when the user access the website.
-// It will contain the access to two different components: Register and Log-in Components.
-// Then all the routes, will be defined in 'app.module.ts'.
+/**
+ * This component will be the first to open when the user access the website.  
+ * It will contain the access to two different components: Register and Log-in Components. 
+ * Then all the routes, will be defined in 'app.module.ts'.
+ * 
+ * @module WelcomePageComponent
+ */
 
 import { Component, OnInit } from '@angular/core';
 // Under, imported the two components that we need to access through 'WelcomePageComponent'.
@@ -24,7 +27,10 @@ export class WelcomePageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // This is the function that will open the dialog when the signup button is clicked  
+  /**
+   * Opens a dialog with a UserRegistrationFormComponent
+   */ 
+
   openUserRegistrationDialog(): void {
     this.dialog.open(UserRegistrationFormComponent, {
       // Assigning the dialog a width
@@ -32,7 +38,10 @@ export class WelcomePageComponent implements OnInit {
     });
   }
 
-  // This is the function that will open the dialog when the Log-In button is clicked
+  /**
+   * Opens a dialog with a UserLoginFormComponent
+   */ 
+
   openUserLoginDialog(): void {
     this.dialog.open(UserLoginFormComponent, {
       // Assigning the dialog a width
