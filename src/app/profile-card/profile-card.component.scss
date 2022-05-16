@@ -49,6 +49,7 @@
     width: 330px;
     height: 530px;
     margin: 30px;
+    padding-bottom: 40px;
 }
 
 .favorite-movie-image {
@@ -57,6 +58,18 @@
     height: auto;
 }
 
-.favorite-movie-buttons {
-   display: block;
+.group-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.info-button {
+   margin: 15px;
+   
+}
+
+.delete-fav-button {
+   margin-top: 5px;
+   margin-left: 15px;
 }

@@ -26,10 +26,8 @@ export class ProfileCardComponent implements OnInit {
   // Under, gets the User information from the database.
   user: any = {};
   movies: any[] = [];
-  userName: any = localStorage.getItem('user');
-  favs: any = null;
-  favMovies: any[] = [];
-  displayElement: boolean = false
+  favoriteMovies: any[] = [];
+  
 
   constructor(
     public fetchApiData: FetchApiDataService,
@@ -42,20 +40,59 @@ export class ProfileCardComponent implements OnInit {
   // Gets all the movie data and maps the Logged User FavoriteMovies to currentFavoriteMoviesList. 
 
   ngOnInit(): void {
-    this.getUser();
-    this.getFavorites();
+    this.getUserProfile();
   }
 
+  /**
+   * This function grab the User from the DataBase and the makes a Loop in the FavoriteMovies list.
+   * If there is any movie in the list, it's added to favoriteMovies [].
+   * 
+   * @function getUserProfile
+   * @returns The User data object with is FavoriteMoves
+   */
   // Under, get the User from the localStorage.
-  getUser(): void {
+  getUserProfile(): void {
+    let movies: any[] = [];
     const user = localStorage.getItem('user');
     if (user) {
       this.fetchApiData.getUser(user).subscribe((resp: any) => {
-        this.user = resp;
-        console.log(this.user);
+      this.user = resp;
+      this.fetchApiData.getAllMovies().subscribe((resp: any) => {
+      this.movies = resp;
+      this.movies.forEach((movie: any) => {
+        if (this.user.FavoriteMovies.includes(movie._id)) {
+          this.favoriteMovies.push(movie);
+          
+        }
+        });
       });
-    }
+    })
   }
+  }
+
+  /**
+   * Removes a movie from a user's list of favorites with a DELETE request via 
+   * [[FetchApiDataService.removeFavoriteMovies]].
+   * 
+   * @function removeFavorite
+   * @param MovieID {string}
+   */
+  removeFavorites(MovieID: string, title: string): void {
+    this.fetchApiData.removeFavoriteMovies(MovieID).subscribe((resp) => {
+      console.log(resp);
+      this.snackBar.open(
+        `${title} has been removed from your list!`,
+        'OK',
+        {
+          duration: 2000,
+        }
+      );
+    });
+    setTimeout(function () {
+      window.location.reload();
+    }, 1000);
+  }
+
 
   // Under, open the the edit dialog.
   openEditUserProfile(): void {
@@ -115,49 +152,6 @@ export class ProfileCardComponent implements OnInit {
       width: '500px'
     });
    
-  }
-
-  /**
-   * Calls the API with a GET request via [[FetchApiDataService.getAllMovies]] and makes a mapping through
-   * the user's Favorite List to check if any of the movies are in that list, if yes, the movie is added to the list.
-   * 
-   * @function getFavorites()
-   * 
-   */
-
-  getFavorites(): void {
-    let movies: any[] = [];
-    this.fetchApiData.getAllMovies().subscribe((res: any) => {
-      movies = res;
-      // movies.forEach((movie: any) => {
-      //   if (this.user.FavoriteMovies?.includes(movie._id)) {
-      //     this.favMovies.push(movie);
-      //     // this.displayElement = true;
-      //   }
-      //   });
-        this.favMovies = movies.filter((movie: any)=>this.user.FavoriteMovies?.includes(movie._id))
-    });
-  }
-
-  /**
-   * Removes a movie from a user's list of favorites with a DELETE request via 
-   * [[FetchApiDataService.removeFavoriteMovies]].
-   * 
-   * @function removeFavorite
-   * @param MovieID {string}
-   */
-
-  removeFavorite(MovieID: string): void {
-    this.fetchApiData.removeFavoriteMovies(MovieID).subscribe((res: any) => {
-      this.snackBar.open('Successfully removed from favorite movies.', 'OK', {
-        duration: 2000,
-      });
-      this.ngOnInit();
-      setTimeout(() => {
-        window.location.reload();
-      });
-      return this.favs;
-    });
   }
 
   /**

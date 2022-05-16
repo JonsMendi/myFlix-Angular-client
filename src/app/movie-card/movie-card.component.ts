@@ -22,12 +22,8 @@ import { Router } from '@angular/router';
 })
 export class MovieCardComponent implements OnInit {
 
-  user: any = {};
-  Username = localStorage.getItem('user');
   movies: any[] = [];
-  currentUser: any = null;
-  currentFavs: any = null;
-  favArray = <any>[];
+  userFavorites: any[] = [];
 
   constructor(
     public fetchApiData: FetchApiDataService,
@@ -41,7 +37,7 @@ export class MovieCardComponent implements OnInit {
 
    */
   ngOnInit(): void {
-    this.getCurrentUser();
+    this.getFavoriteMovies();
     this.getMovies();
   }
 
@@ -56,31 +52,23 @@ export class MovieCardComponent implements OnInit {
   getMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((response: any) => {
       this.movies = response;
-      console.log(this.movies);
-      console.log(' this.user ===========',  this.user );
-      this.favArray = this.movies.filter((movie: any)=> this.user.FavoriteMovies?.includes(movie._id))
-      this.favArray = this.favArray.map((movie: any)=> movie._id);
-      console.log(' this.favArray ',  this.favArray );
+      
       return this.movies;
     });
   }
 
   /**
    * When the user is logged the functions grab de user from local storage and add the details to the state.
-   * @function getCurrentUser
+   * @function getFavoriteMovies
    * @returns user in JSON format
 
    */
-  getCurrentUser(): void {
+  getFavoriteMovies(): void {
     const username = localStorage.getItem('user');
-    this.fetchApiData.getUser(username).subscribe((resp: any) => {
-       
-     console.log('getCurrentUse ========r', resp)
-      const currentUser=resp.Username
-      console.log(currentUser)
-      this.user = resp;
-      const currentFavs=resp.FavoriteMovies
-      console.log(currentFavs)
+    this.fetchApiData.getFavoriteMovies(username).subscribe((resp: any) => {
+      console.log(resp.FavoriteMovies)
+     this.userFavorites = resp.FavoriteMovies;
+     return this.userFavorites;
 
     });
   }
@@ -95,18 +83,23 @@ export class MovieCardComponent implements OnInit {
   
   addToUserFavorites(MovieID: string): void {
     
-    const token = localStorage.getItem('token');
-    console.log(token)
-    console.log(MovieID, this.favArray, this.favArray.includes(MovieID));
-    if(!this.favArray.includes(MovieID)){
-      this.fetchApiData.addFavoriteMovies(MovieID).subscribe((response: any) => {
-        console.log('response',response);
-        // this.favArray.push(MovieID)
-      this.snackBar.open('Nice! The movie is in your list.', 'OK', { duration: 3000 })  
-      });
-    }else{
-      this.snackBar.open('Sorry! The movie has been added to favorite.', 'OK', { duration: 3000 })
-    }
+    const username = localStorage.getItem('Username') || '';
+    this.fetchApiData.addFavoriteMovies(MovieID).subscribe((response: any) => {
+      console.log(response)
+      console.log(MovieID)
+      this.snackBar.open(
+        `The Movie has been added to your list!`,
+        'OK',
+        {
+          duration: 2000,
+        }
+      );
+      //Under forced a reload to update the favorite button state.
+      setTimeout(function () {
+        window.location.reload();
+      }, 1000);
+    });
+    this.ngOnInit();
   }
 
   /**
@@ -120,10 +113,33 @@ export class MovieCardComponent implements OnInit {
   removeFavorite(MovieID: string): void {
     console.log(MovieID);
       this.fetchApiData.removeFavoriteMovies(MovieID).subscribe((response: any) => {
+        this.snackBar.open(
+          `The Movie has been removed from your list!`,
+          'OK',
+          {
+            duration: 2000,
+          }
+        );
+        //Under forced a reload to update the favorite button state.
+        setTimeout(function () {
+          window.location.reload();
+        }, 1000);
       console.log(response);
     });
     
   }
+
+  /**
+   * Created isFavorite function to activate when a movie is added/removed to the favorite list
+   * isFavorite is used in the form of condition on the button in [movie.card.component.html].
+   * @param MovieID {string}
+   * @returns the user favorite list updated
+   */
+
+  isFavorite(MovieID: any): boolean {
+    return this.userFavorites.includes(MovieID)
+  }
+
   /**
    * Open's a dialog through SynopsisCardComponent with the Synopsis of a certain movie.
    * 
@@ -182,18 +198,3 @@ export class MovieCardComponent implements OnInit {
   }
 
 }
-
-
-/**
- * So about the issues you have mentioned here are some things you can try to fix them:
-
-You can do a check based on the id of the movie before adding it to the user's favorites.
- Forexample when you click the button to add a movie to favorites, you can first do a check to 
- makes sure that the user doesn't already have that movie 'id' present among their favorites
-  Then about the favorites needing a reload to show up, i checked you code and it looks like you 
-  are fetching and setting the movies correctly. so i think all you need to do is do a nil check. 
-  so something like if favorites are present, then render favorite movies. its usually done 
-  like favs && favs.map(...render fav). That way, it only renders when favs are present and wont 
-  require a reload.
-
- */
