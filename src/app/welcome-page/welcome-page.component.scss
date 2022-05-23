@@ -3,6 +3,7 @@
     justify-content: center;
     height: 100%;
     background-image: url('../../assets/images/banana.png');
+    background-repeat: no-repeat;
 }
 
 .welcome-card {
@@ -12,7 +13,7 @@
     align-items: center;
     width: 400px;
     height: 200px;
-    margin-top: 180px;
+    margin-top: 150px;
     border-radius: 2%;
     z-index: 1;
     
@@ -44,4 +45,10 @@ h1 {
 
 .image-back {
     z-index: -1;
+}
+
+@media (min-width: 1440px){
+    .welcome-card {
+        margin-right: 150px;
+    }
 }
